@@ -2,11 +2,12 @@ import { StyleSheet, Image, View, Text, Pressable } from 'react-native';
 import React from 'react';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
 
 export type NewsItemProps = {
     newsData: {
         author: string;
-        content: string;
+        url: string;
         description: string;
         title: string;
         urlToImage: string;
@@ -18,8 +19,17 @@ const NewsItem = (props: NewsItemProps) => {
 
     const navigation = useNavigation();
 
+    const goToArticle = () => {
+        // got to article source
+        WebBrowser.openBrowserAsync(props.newsData.url);
+    
+    }
+
   return (
-    <Pressable style={styles.container} onPress={()=>navigation.navigate("NotFound")}>
+    <Pressable 
+        style={styles.container} 
+        onPress={goToArticle}
+    >
         {/* article image url */}
         <Image
             source={{
@@ -40,7 +50,7 @@ const NewsItem = (props: NewsItemProps) => {
             {/* author and published date */}
             <View style={styles.authorDateContainer}>
                 {/* author */}
-                <Text>by:<Text style={styles.author}> {props.newsData.author || "unknown"}</Text></Text>
+                <Text>by:<Text style={styles.author} numberOfLines={1} ellipsizeMode='tail'> {props.newsData.author || "unknown"}</Text></Text>
                 {/* published date */}
                 <Text style={styles.date}>{moment(props.newsData.publishedAt).format("MMM Do YY")}</Text>
             </View>
@@ -56,16 +66,15 @@ const styles = StyleSheet.create({
     container:{
         width: "90%",
         alignSelf: "center",
-        // backgroundColor: "red",
-        marginTop: 30,
+        marginTop: 20,
         borderRadius: 30,
-        borderWidth: 1,
-        borderColor: "#fff",
-        // shadowOpacity: 1,
-        // shadowOffset: {
-        //     height: 5,
-        //     width: 5
-        // }
+        shadowOpacity: 0.5,
+        elevation: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            height: 5,
+            width: 5
+        }
     
         
         
@@ -78,12 +87,9 @@ const styles = StyleSheet.create({
     },
     info:{
         padding: 20,
-        borderLeftWidth: 0.5,
-        borderRightWidth: 0.5,
-        borderBottomWidth: 0.5,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
-        borderColor: "#000"
+        backgroundColor: "#fff"
     },
     title:{
         fontSize: 20,

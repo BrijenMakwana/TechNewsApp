@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { FlatList, RefreshControl, SafeAreaView, StyleSheet } from 'react-native';
+import { FlatList, RefreshControl, SafeAreaView, StyleSheet,Image, Platform } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
+import { FontAwesome } from '@expo/vector-icons';
 import NewsItem from '../components/NewsItem';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
 
   const [newsArticles,setNewsArticles] = useState([]);
   const [refreshing,setRefreshing] = useState(false);
@@ -54,6 +54,13 @@ export default function TabOneScreen() {
         data={newsArticles}
         renderItem={({item}) => <NewsItem newsData={item}/>}
         keyExtractor={(item)=>item.title}
+        ListHeaderComponent={
+          <View style={styles.headerComponent}>
+            <FontAwesome name="newspaper-o" size={24} color="#00AF91" />
+            <Text style={styles.heading}>Tech News</Text>
+          </View>
+        }
+        ListFooterComponent={<View style={{height: 20}}/>}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -71,5 +78,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  headerComponent:{
+    padding: 10,
+    flexDirection: "row",
+    marginLeft: 20,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: Platform.OS === "android" ? 45 : 0,
+    // backgroundColor: "red"
+
+  },
+  heading:{
+    color: "#00AF91",
+    fontSize: 30,
+    fontWeight: "bold",
+    marginLeft: 15
   }
 });
