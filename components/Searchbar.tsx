@@ -1,11 +1,12 @@
-import { Platform, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import React from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 export type SearchbarProps ={
   searchText: string;
   setSearchText: (text: string) => void;
   onSubmit: () => void;
+  onClear: () => void;
 }
 
 const Searchbar = (props: SearchbarProps ) => {
@@ -20,6 +21,13 @@ const Searchbar = (props: SearchbarProps ) => {
         placeholderTextColor="grey"
         onSubmitEditing={props.onSubmit}
       />
+      <Pressable 
+        style={styles.clear}
+        onPress={props.onClear}
+      >
+        <MaterialIcons name="clear" size={20} color="#DA0037" />
+      </Pressable>
+      
     </View>
   );
 };
@@ -53,5 +61,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 15,
     color: "#000"
+  },
+  clear:{
+    width: 25,
+    height: 25,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

@@ -3,55 +3,85 @@ import { useState } from 'react';
 import { SafeAreaView, StyleSheet, FlatList, Text,Image, View } from 'react-native';
 import NewsItem from '../components/NewsItem';
 import Searchbar from '../components/Searchbar';
+import Colors from '../constants/Colors';
 
 
 
-export default function TabTwoScreen() {
+export default function SearchScreen() {
 
   const [searchText,setSearchText] = useState("");
   const [newsArticles,setNewsArticles] = useState([]);
 
+  // getting news
   const getNews = async () => {
     
-    await axios.get('https://newsapi.org/v2/top-headlines',{
-      params: {
-        category: "technology",
-        // country: "us",
-        language: "en",
-        pageSize: 100,
-        q: searchText,
-        apiKey: ""
-      }
-    })
-    .then((response) => {
-       console.log(response.data.articles);
-      setNewsArticles(response.data.articles);
-      // console.log(newsArticles.length);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });  
+    if(searchText != "")
+    {
+      await axios.get('https://newsapi.org/v2/top-headlines',{
+        params: {
+          category: "technology",
+          language: "en",
+          pageSize: 100,
+          q: searchText,
+          apiKey: ""
+        }
+      })
+      .then((response) => {
+  
+        setNewsArticles(response.data.articles);
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+    }else{
+      alert("Please enter your search")
+    }
+      
   }
+
+  // clear rthe search and array
+  const clearSearch = () => {
+    setSearchText("");
+    setNewsArticles([]);
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView 
+      style={[styles.container,{
+        backgroundColor: Colors.light.background
+      }]}>
+        {/* searchbar */}
       <Searchbar 
         searchText={searchText} 
         setSearchText={(text)=>setSearchText(text)} 
         onSubmit={getNews}  
+        onClear={clearSearch}
       />
       {
         newsArticles.length !=0 ? (
+          // articles
           <FlatList
             data={newsArticles}
             renderItem={({item}) => <NewsItem newsData={item}/>}
             keyExtractor={(item)=>item.title}
             style={{marginTop: 20}}
+            ListHeaderComponent={
+              <Text 
+                style={[styles.noOfArtcles,{
+                  color: Colors.light.tint
+                }]}
+              >
+                {newsArticles.length} articles found
+              </Text>
+            }
             ListFooterComponent={<View style={{height: 20}}/>}
           />
         ):
+        // render when no search result found
         (
           <View style={styles.emptyContainer}>
             <Image 
@@ -73,7 +103,6 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     
   },
   emptyContainer:{
@@ -91,5 +120,10 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 200,
     borderRadius: 50,
+  },
+  noOfArtcles:{
+    fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: "center"
   }
 });

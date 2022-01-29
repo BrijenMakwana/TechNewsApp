@@ -3,6 +3,7 @@ import React from 'react';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
+import Colors from '../constants/Colors';
 
 export type NewsItemProps = {
     newsData: {
@@ -12,6 +13,9 @@ export type NewsItemProps = {
         title: string;
         urlToImage: string;
         publishedAt: string;
+        source: {
+            name: string;
+        }
     }
 }
 
@@ -21,13 +25,15 @@ const NewsItem = (props: NewsItemProps) => {
 
     const goToArticle = () => {
         // got to article source
-        WebBrowser.openBrowserAsync(props.newsData.url);
-    
+       WebBrowser.openBrowserAsync(props.newsData.url);
+        
     }
 
   return (
     <Pressable 
-        style={styles.container} 
+        style={[styles.container,{
+            backgroundColor: Colors.light.background
+        }]} 
         onPress={goToArticle}
     >
         {/* article image url */}
@@ -40,21 +46,69 @@ const NewsItem = (props: NewsItemProps) => {
         />
 
         {/* article info */}
-        <View style={styles.info}>
+        <View 
+            style={[styles.info,{
+                backgroundColor: Colors.light.background
+            }]}
+        >
             {/* title of the article */}
-            <Text style={styles.title} numberOfLines={3} ellipsizeMode='tail'>{props.newsData.title}</Text>
+            <Text 
+                style={[styles.title,{
+                    color: Colors.light.text
+                }]} 
+                numberOfLines={3} 
+                ellipsizeMode='tail'
+            >
+                {props.newsData.title}
+            </Text>
 
             {/* description */}
-            <Text style={styles.description} ellipsizeMode="tail" numberOfLines={3}>{props.newsData.description}</Text>
+            <Text 
+                style={[styles.description,{
+                    color: Colors.light.text
+                }]} 
+                ellipsizeMode="tail" 
+                numberOfLines={3}
+            >
+                {props.newsData.description}
+            </Text>
 
             {/* author and published date */}
             <View style={styles.authorDateContainer}>
                 {/* author */}
-                <Text>by:<Text style={styles.author} numberOfLines={1} ellipsizeMode='tail'> {props.newsData.author || "unknown"}</Text></Text>
+                <Text>
+                    by:{'\u00A0'} 
+                    <Text 
+                        style={[styles.author,{
+                            color: Colors.light.text
+                        }]} 
+                        numberOfLines={1} 
+                        ellipsizeMode='tail'
+                    > 
+                        {props.newsData.author || "unknown"}
+                    </Text>
+                </Text>
                 {/* published date */}
-                <Text style={styles.date}>{moment(props.newsData.publishedAt).format("MMM Do YY")}</Text>
+                <Text 
+                    style={[styles.date,{
+                        color: Colors.light.tint
+                    }]}
+                >
+                    {moment(props.newsData.publishedAt).format("MMM Do YY")}
+                </Text>
             </View>
+            <Text style={{marginTop: 10}}>
+                source:{'\u00A0'}
+                <Text 
+                    style={[styles.sourceText,{
+                        color: Colors.light.tint
+                    }]}
+                > 
+                    {props.newsData.source.name || "unknown"}
+                </Text>
+            </Text>
         </View>
+        
         
     </Pressable>
   );
@@ -66,7 +120,7 @@ const styles = StyleSheet.create({
     container:{
         width: "90%",
         alignSelf: "center",
-        marginTop: 20,
+        marginTop: 28,
         borderRadius: 30,
         shadowOpacity: 0.5,
         elevation: 10,
@@ -75,9 +129,6 @@ const styles = StyleSheet.create({
             height: 5,
             width: 5
         }
-    
-        
-        
     },
     image:{
         width: "100%",
@@ -89,32 +140,38 @@ const styles = StyleSheet.create({
         padding: 20,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
-        backgroundColor: "#fff"
     },
     title:{
         fontSize: 20,
         fontWeight: "bold",
-        color: "#000"
+        
     },
     description:{
         fontSize: 16,
         fontWeight: "500",
         marginTop: 10,
-        color: "#000"
+        
     },
     authorDateContainer:{
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: 10
+        marginTop: 10,
+        width: "100%",
+        flexWrap: "wrap"
     },
     author:{
         fontSize: 15,
         fontWeight: "bold",
-        color: "#000"
     },
     date:{
         fontSize: 15,
         fontWeight: "bold",
-        color: "#00AF91"
+        
+        
+    },
+    sourceText:{
+        fontSize: 18,
+        fontWeight: "bold",
+        
     }
 })

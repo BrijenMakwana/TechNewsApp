@@ -5,13 +5,14 @@ import { FlatList, RefreshControl, SafeAreaView, StyleSheet,Image, Platform } fr
 import { FontAwesome } from '@expo/vector-icons';
 import NewsItem from '../components/NewsItem';
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import Colors from '../constants/Colors';
 
 export default function HomeScreen() {
 
   const [newsArticles,setNewsArticles] = useState([]);
   const [refreshing,setRefreshing] = useState(false);
 
+// getting news
   const getNews = async () => {
     
     await axios.get('https://newsapi.org/v2/top-headlines',{
@@ -36,6 +37,7 @@ export default function HomeScreen() {
     });  
   }
 
+  // on refresh
   const onRefresh = () => {
     getNews();
     setRefreshing(true);
@@ -44,28 +46,40 @@ export default function HomeScreen() {
     }, 2000);
   }
 
+  // call getNews when user first open the app
   useEffect(() => {
     getNews();
   }, []);
   
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView 
+      style={[styles.container,{
+        backgroundColor: Colors.light.background
+      }]}>
+        {/* list of articles */}
       <FlatList
         data={newsArticles}
         renderItem={({item}) => <NewsItem newsData={item}/>}
         keyExtractor={(item)=>item.title}
         ListHeaderComponent={
           <View style={styles.headerComponent}>
-            <FontAwesome name="newspaper-o" size={24} color="#00AF91" />
-            <Text style={styles.heading}>Tech News</Text>
+            <FontAwesome name="newspaper-o" size={24} color={Colors.light.tint} />
+            <Text 
+              style={[styles.heading,{
+              color: Colors.light.tint
+              }]}
+            >
+              Tech News
+            </Text>
           </View>
         }
         ListFooterComponent={<View style={{height: 20}}/>}
+        // on refresh
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            tintColor="#00AF91"
+            tintColor={Colors.light.tint}
           />
         }
       />
@@ -77,7 +91,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
   },
   headerComponent:{
     padding: 10,
@@ -86,11 +99,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     marginTop: Platform.OS === "android" ? 45 : 0,
-    // backgroundColor: "red"
 
   },
   heading:{
-    color: "#00AF91",
     fontSize: 30,
     fontWeight: "bold",
     marginLeft: 15
