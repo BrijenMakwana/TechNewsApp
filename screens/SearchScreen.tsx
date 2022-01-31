@@ -23,7 +23,7 @@ export default function SearchScreen() {
           language: "en",
           pageSize: 100,
           q: searchText,
-          apiKey: ""
+          apiKey: "3f2d159966374047adf43dfce90e33c1"
         }
       })
       .then((response) => {
@@ -61,9 +61,7 @@ export default function SearchScreen() {
         onSubmit={getNews}  
         onClear={clearSearch}
       />
-      {
-        newsArticles.length !=0 ? (
-          // articles
+          {/* list of articles */}
           <FlatList
             data={newsArticles}
             renderItem={({item}) => <NewsItem newsData={item}/>}
@@ -79,22 +77,20 @@ export default function SearchScreen() {
               </Text>
             }
             ListFooterComponent={<View style={{height: 20}}/>}
+            ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <Image 
+                source={{
+                  uri: "https://cdn.pixabay.com/photo/2019/03/13/07/13/men-4052354_960_720.jpg"
+                  }} 
+                style={styles.image}
+                resizeMode= "cover"
+              />
+            </View>
+          }
           />
-        ):
-        // render when no search result found
-        (
-          <View style={styles.emptyContainer}>
-            <Image 
-              source={{
-                uri: "https://cdn.pixabay.com/photo/2019/03/13/07/13/men-4052354_960_720.jpg"
-                }} 
-              style={styles.image}
-              resizeMode= "cover"
-            />
-          </View>
-         
-        )
-      }
+        
+      
       
     </SafeAreaView>
   );

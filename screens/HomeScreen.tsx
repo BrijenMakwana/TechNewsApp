@@ -24,7 +24,7 @@ export default function HomeScreen() {
         category: "technology",
         language: language,
         pageSize: 100,
-        apiKey: ""
+        apiKey: "3f2d159966374047adf43dfce90e33c1"
       }
     })
     .then((response) => {
