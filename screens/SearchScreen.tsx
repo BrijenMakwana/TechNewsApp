@@ -23,7 +23,7 @@ export default function SearchScreen() {
           language: "en",
           pageSize: 100,
           q: searchText,
-          apiKey: "3f2d159966374047adf43dfce90e33c1"
+          apiKey: ""
         }
       })
       .then((response) => {
