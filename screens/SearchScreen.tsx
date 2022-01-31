@@ -43,7 +43,7 @@ export default function SearchScreen() {
       
   }
 
-  // clear rthe search and array
+  // clear search and array
   const clearSearch = () => {
     setSearchText("");
     setNewsArticles([]);

@@ -7,10 +7,14 @@ import NewsItem from '../components/NewsItem';
 import { Text, View } from '../components/Themed';
 import Colors from '../constants/Colors';
 
+
 export default function HomeScreen() {
 
   const [newsArticles,setNewsArticles] = useState([]);
   const [refreshing,setRefreshing] = useState(false);
+  const [language,setLanguage] = useState("en");
+
+  
 
 // getting news
   const getNews = async () => {
@@ -18,8 +22,7 @@ export default function HomeScreen() {
     await axios.get('https://newsapi.org/v2/top-headlines',{
       params: {
         category: "technology",
-        country: "us",
-        language: "en",
+        language: language,
         pageSize: 100,
         apiKey: ""
       }
