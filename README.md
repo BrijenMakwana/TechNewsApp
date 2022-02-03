@@ -1,6 +1,6 @@
 # TechNewsApp
 
-This app will show Tech News from all around the world by all trusted resources.
+**This app will show Tech News from all around the world by all trusted resources**
 
 Play Store Link: https://play.google.com/store/apps/details?id=com.brijenmakwana.TechNews
 
@@ -10,6 +10,8 @@ Play Store Link: https://play.google.com/store/apps/details?id=com.brijenmakwana
 
 This app pulls the data from [NEWS](https://newsapi.org) API.
 
-![Screenshot of the app](https://www.canva.com/design/DAE3FKh2-Js/93CxznEyXpmVgY5_z1lWUQ/view?utm_content=DAE3FKh2-Js&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu)
+![Screenshot of the app](https://github.com/BrijenMakwana/TechNewsApp/blob/main/assets/images/ScreenShot1.png)
+![Screenshot of the app](https://github.com/BrijenMakwana/TechNewsApp/blob/main/assets/images/ScreenShot2.png)
+
 
 Tech News App is developed with React Native Expo and React Navigation.
