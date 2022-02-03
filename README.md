@@ -10,8 +10,6 @@ Play Store Link: https://play.google.com/store/apps/details?id=com.brijenmakwana
 
 This app pulls the data from [NEWS](https://newsapi.org) API.
 
-![Screenshot of the app](https://github.com/BrijenMakwana/TechNewsApp/blob/main/assets/images/ScreenShot1.png)
-![Screenshot of the app](https://github.com/BrijenMakwana/TechNewsApp/blob/main/assets/images/ScreenShot2.png)
-
+<img src="https://github.com/BrijenMakwana/TechNewsApp/blob/main/assets/images/ScreenShot1.png" width="300" height="500"> <img src="https://github.com/BrijenMakwana/TechNewsApp/blob/main/assets/images/ScreenShot2.png" width="300" height="500">
 
 Tech News App is developed with React Native Expo and React Navigation.
