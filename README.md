@@ -1,8 +1,8 @@
-# TechNewsApp
+# Tech News App
 
-**This app will show Tech News from all around the world by all trusted resources**
+## This app will show Tech News from all around the world by all trusted resources
 
-Play Store Link: https://play.google.com/store/apps/details?id=com.brijenmakwana.TechNews
+***Download the app from [Play Store](https://play.google.com/store/apps/details?id=com.brijenmakwana.TechNews)***
 
 - You get articles from various resources and countries.
 - You can also search for an article based on your interest.
